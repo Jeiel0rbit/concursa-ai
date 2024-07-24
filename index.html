@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concursa aí</title>
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- https://tailwindcss.com/docs -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Um pouco de animação sem o uso do TailwindCSS -->
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        .fade-in.visible {
+            animation: fadeIn 1s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-blue-50 text-blue-900">
+
+    <!-- Primeira seção -->
+    <section class="min-h-screen flex flex-col items-center justify-center text-center p-4 fade-in-section">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 fade-in">Concursa aí</h1>
+            <h2 class="text-3xl md:text-1xl mb-6 fade-in">- Concursos públicos na palma da sua mão -</h2>
+            <img src="demo.png" alt="logo do app" class="w-full max-w-sm md:max-w-md mx-auto shadow-xl fade-in rounded-md">
+        </div>
+    </section>
+
+    <!-- Segunda seção -->
+    <section class="flex flex-col items-center justify-center text-center p-6 md:p-12 min-h-[80vh] fade-in-section">
+        <div class="max-w-6xl mx-auto">
+            <img src="demo2.png" alt="captura de tela do app" class="w-full max-w-xs md:max-w-lg mx-auto shadow-xl fade-in rounded-md">
+            <p class="text-lg md:text-2xl mt-4 md:mt-8 fade-in">Não importa qual estado, monitore!</p>
+        </div>
+    </section>
+
+    <!-- Terceira seção -->
+    <section class="flex flex-col items-center justify-center text-center p-6 md:p-12 min-h-[80vh] fade-in-section">
+        <div class="max-w-6xl mx-auto">
+            <img src="demo3.png" alt="captura de tela do app" class="w-full max-w-xs md:max-w-lg mx-auto shadow-xl fade-in rounded-md">
+            <p class="text-lg md:text-2xl mt-4 md:mt-8 fade-in">Saiba quais concursos abertos ou previstos!</p>
+        </div>
+    </section>
+
+    <!-- Quarta seção -->
+    <section class="flex flex-col items-center justify-center text-center p-6 md:p-12 min-h-[80vh] fade-in-section">
+        <div class="max-w-6xl mx-auto">
+            <img src="demo4.png" alt="captura de tela do app" class="w-full max-w-xs md:max-w-lg mx-auto shadow-xl fade-in rounded-md">
+            <p class="text-lg md:text-2xl mt-4 md:mt-8 fade-in">Tenha atualizações dos concursos em tempo real!</p>
+        </div>
+    </section>
+    
+    <!-- Última seção -->
+    <section class="min-h-screen flex items-center justify-center text-center p-4 fade-in-section">
+        <div class="max-w-6xl mx-auto">
+            <img src="favicon.png" alt="Tela do app" class="w-20 h-auto mb-6 mx-auto border-4 border-blue-500 rounded-lg shadow-lg">
+            <h3 class="text-2xl md:text-4xl font-semibold mb-6 fade-in">Baixe o app!</h3>
+            <p class="fade-in mb-4 text-green-500"><i class="fas fa-shield-alt"></i> Aplicativo seguro</p>          
+            <a href="/concursa-ai.apk" download>
+                <button class="transition ease-in-out delay-100 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 text-white px-6 py-3 rounded shadow-xl motion-reduce:transition-none motion-reduce:hover:transform-none animate-pulse">
+                  Baixar
+                </button>
+            </a>               
+        </div>
+    </section>
+
+    <footer class="w-full text-center bg-gray-800 text-white p-4">
+        <p>&copy; 2024 | Site criado por <a href="https://jeiel.pages.dev" class="underline">Jeiel Miranda</a></p>
+    </footer>
+
+    <!-- Script que detecta a visualização do usuário -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.querySelectorAll('.fade-in').forEach(element => {
+                                element.classList.add('visible');
+                            });
+                        }, 500);
+                    } else {
+                        entry.target.querySelectorAll('.fade-in').forEach(element => {
+                            element.classList.remove('visible');
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+    <!-- SW.js -->
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+              .then(registration => {
+                console.log('Service Worker registrado com sucesso:', registration);
+              })
+              .catch(error => {
+                console.log('Falha ao registrar o Service Worker:', error);
+              });
+          });
+        }
+      </script>
+</body>
+</html>
